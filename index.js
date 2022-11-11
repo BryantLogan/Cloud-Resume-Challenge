@@ -1,11 +1,14 @@
 const visitorLabel = document.getElementById("visitorLabel");
 
-const element = document.body;
-
-element.onload = increaseCount;
-
-function increaseCount(){
-    let count = 0;
-    count += 1;
-    visitorLabel.innerHTML = (`This site have been visited ${count} times.`);
+async function increaseCount(){
+    const endpoint = new URL ('https://ebab2mr3z5.execute-api.us-east-1.amazonaws.com/prod/');
+    
+    return (fetch(endpoint, {
+        method: 'GET',
+    }).json())
 }
+
+console.log(await increaseCount());
+
+//     visitorLabel.innerHTML = (`This site have been visited ${count} times.`);
+// }

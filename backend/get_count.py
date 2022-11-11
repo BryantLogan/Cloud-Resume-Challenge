@@ -16,31 +16,13 @@ def count_hits():
     return {
         "statusCode": 200,
         "headers": {
-            "Content-Type": "application/json"
-        },
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "*",
+            "Access-Control-Allow-Headers": "*",
+    },
         "body": json.dumps({
             "message": "success",
             "hits": visit_total
         })
     }
-
-
-def add_hit():
-    client = boto3.client('dynamodb')    
-    response = client.update_item(
-        TableName='crc-dynamo-db',
-        Key={
-            'pk':{
-                'S': 'VisitCounter'}
-        },
-        UpdateExpression= "SET Hits = Hits + :incr",
-        ExpressionAttributeValues ={
-            ':incr': {'N': '1'}
-            },
-        ReturnValues="UPDATED_NEW",
-    )
-    # print(response['Attributes']['Hits']['N'])
-
-
-count_hits()
-add_hit()
