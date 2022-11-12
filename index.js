@@ -19,7 +19,7 @@ async function setIncreaseCount() {
   
   async function getCount() {
     try {
-      let response = await fetch('https://ebab2mr3z5.execute-api.us-east-1.amazonaws.com/prod/');
+      let response = await fetch('https://ebab2mr3z5.execute-api.us-east-1.amazonaws.com/prod/counter/get');
       let data = await response.json();
       return data;
     } catch(err) {
@@ -28,7 +28,7 @@ async function setIncreaseCount() {
   }
 
   async function increaseCount() {
-    fetch('https://ebab2mr3z5.execute-api.us-east-1.amazonaws.com/prod/', {
+    fetch('https://ebab2mr3z5.execute-api.us-east-1.amazonaws.com/prod/counter/add', {
         headers: {
             "Content-Type": "application/json",
             },       
