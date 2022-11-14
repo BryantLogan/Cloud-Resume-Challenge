@@ -1,8 +1,8 @@
-import boto3
 import json
+import boto3
 
-def add_hit():
-    client = boto3.client('dynamodb')    
+def lambda_handler(event, context):
+    client = boto3.client('dynamodb')
     response = client.update_item(
         TableName='crc-dynamo-db',
         Key={

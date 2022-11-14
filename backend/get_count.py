@@ -1,8 +1,7 @@
-import os
 import json
 import boto3
 
-def count_hits():
+def lambda_handler(event, context):
     client = boto3.client('dynamodb')
     visits = client.get_item(
         TableName='crc-dynamo-db',
