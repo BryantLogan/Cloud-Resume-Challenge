@@ -1,12 +1,7 @@
 const visitorLabel = document.getElementById("visitorLabel");
 
-// async function increaseCount(){
-//     const endpoint = new URL ('https://ebab2mr3z5.execute-api.us-east-1.amazonaws.com/prod/');
-    
-//     return (fetch(endpoint, {
-//         method: 'GET',
-//     }).json())
-// }
+// updates the visitor count to current visits after getting current
+// current visit count from DynamoDB table
 async function setIncreaseCount() {
     try {
       let data = await getCount();
@@ -17,6 +12,7 @@ async function setIncreaseCount() {
     }
   }
   
+// calls GET API to trigger Lambda function to retrieve visit count from DynamoDB
   async function getCount() {
     try {
       let response = await fetch('https://ebab2mr3z5.execute-api.us-east-1.amazonaws.com/prod/counter/get');
@@ -27,6 +23,7 @@ async function setIncreaseCount() {
     }
   }
 
+// calls PUT API to trigger Lambda function to add +1 visit to visit count attribute in DynamoDB
   async function increaseCount() {
     fetch('https://ebab2mr3z5.execute-api.us-east-1.amazonaws.com/prod/counter/add', {
         headers: {
@@ -35,11 +32,9 @@ async function setIncreaseCount() {
             method: "PUT",
         });
   }
-  
+
+// Calls function to update index.html with accurate visit count
 setIncreaseCount();
+
+// Calls function to add +1 visit count to backend DynamoDB
 increaseCount();
-
-// console.log(await increaseCount());
-
-//     visitorLabel.innerHTML = (`This site have been visited ${count} times.`);
-// }
