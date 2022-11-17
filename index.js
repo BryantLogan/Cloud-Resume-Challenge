@@ -4,7 +4,7 @@ const visitorLabel = document.getElementById("visitorLabel");
 // current visit count from DynamoDB table
 async function setIncreaseCount() {
     try {
-      let data = await getCount();
+      let data = await increaseCount();
       let increasedCount = data.hits;
       document.getElementById("visitorLabel").innerHTML = `This site has been visited ${increasedCount} times.`;
     } catch(err) {
@@ -13,25 +13,33 @@ async function setIncreaseCount() {
   }
   
 // calls GET API to trigger Lambda function to retrieve visit count from DynamoDB
-  async function getCount() {
-    try {
-      let response = await fetch('https://ebab2mr3z5.execute-api.us-east-1.amazonaws.com/prod/counter/get');
-      let data = await response.json();
-      return data;
-    } catch(err) {
-      console.log(err);
-    }
-  }
+  // async function getCount() {
+  //   try {
+  //     let response = await fetch('https://mtgun9y6ie.execute-api.us-east-1.amazonaws.com/post/counter');
+  //     let data = await response.json();
+  //     return data;
+  //   } catch(err) {
+  //     console.log(err);
+  //   }
+  // }
 
 // calls PUT API to trigger Lambda function to add +1 visit to visit count attribute in DynamoDB
   async function increaseCount() {
-    fetch('https://ebab2mr3z5.execute-api.us-east-1.amazonaws.com/prod/counter/add', {
+    try{
+      let response = await fetch('https://x62ycm3uu0.execute-api.us-east-1.amazonaws.com/post/counter', {
         headers: {
             "Content-Type": "application/json",
             },       
-            method: "PUT",
-        });
+            method: "POST",
+        })
+        let data = await response.json();
+        return data;
+      }
+      catch(err) {
+        console.log(err);
+      }
   }
+
 
 // Calls function to update index.html with accurate visit count
 setIncreaseCount();

@@ -1,13 +1,13 @@
 import json
 import boto3
 
-def lambda_handler(event, context):
+def get_count_handler(event, context):
     client = boto3.client('dynamodb')
     visits = client.get_item(
-        TableName='crc-dynamo-db',
+        TableName='cloud-resume-challenge-db',
         Key={
             'pk':{
-            'S': 'VisitCounter'}
+            'S': 'Visits'}
             },
             AttributesToGet=[
                 'Hits'])
@@ -25,3 +25,5 @@ def lambda_handler(event, context):
             "hits": visit_total
         })
     }
+
+get_count_handler()
