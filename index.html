@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name ="viewport" content=""width=device-width, initial-scale="1.0">
-        <title>Bryant's Resume</title>
+        <meta name ="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <meta property="og:url" content="https://bryantlogan.com">
+        <meta property="og:type" content="protfolio">
+        <meta property="og:title" content="Bryant's Cloud Resume">
+        <meta property="og:description" content="Bryant's resume, hosted in the AWS Cloud using IaC"
+        <!-- <title>Bryant's Cloud Resume</title> -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href = "style.css" rel ="stylesheet" type ="text/css">
     </head>
@@ -17,7 +21,7 @@
                     <div class="imgBx">
                         <img src="headshot.jpg">
                     </div>
-                    <h2>Bryant Logan<br><span>AWS / DevOps Engineer</span></h2>
+                    <h2>Bryant Logan<br><span>AWS Cloud / DevOps Engineer</span></h2>
                 </div>
                 
                 <div class ="contactInfo">
@@ -114,7 +118,7 @@
                         <p>
                             <li>I have designed a resume web app (you're viewing it now!) that utilizes S3 to host a static website.</li>
                             <li>Frontend: Route 53 (DNS), CloudFront, TLS Certificate, S3.</li> 
-                            <li>Backend: API Gateway, Lambda functions (Python), DynamoDB.</li>
+                            <li>Backend: Terraform - API Gateway, Lambda function (Python), DynamoDB.</li>
                             <li>Using GitHub Actions, I have set up an action to upload files to my S3 bucket and invalidate the CloudFront cache after pushing commits to my GitHub repository.</li>
                         </p><br>                    
                     <h4>100 Days of Code: Python</h4>
@@ -203,7 +207,7 @@
                 </div>
                 <div>
                     <h5>Visitors:</h5>
-                    <label id="visitorLabel"></label>
+                    <label id="visitorLabel">This site has been visited   times.</label>
                 </div>
             </div>
         </div>
