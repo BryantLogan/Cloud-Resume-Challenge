@@ -39,11 +39,20 @@ resource "aws_api_gateway_rest_api" "crc_api" {
 }
 
 # --- OPTIONS resources --- #
+# module "cors" {
+#   source = "squidfunk/api-gateway-enable-cors/aws"
+#   version = "0.3.3"
+
+#   api_id          = aws_api_gateway_rest_api.crc_api.id
+#   api_resource_id = aws_api_gateway_resource.get_resource.id
+# }
+
 resource "aws_api_gateway_method" "crc_options_method" {
   rest_api_id   = aws_api_gateway_rest_api.crc_api.id
   resource_id   = aws_api_gateway_resource.get_resource.id
   http_method   = "OPTIONS"
   authorization = "NONE"
+  api_key_required = false
 }
 
 resource "aws_api_gateway_method_response" "response_200" {
@@ -69,9 +78,7 @@ resource "aws_api_gateway_integration" "options_integration" {
   type        = "MOCK"
   passthrough_behavior = "WHEN_NO_MATCH"
   request_templates = {
-    "application/json" = jsonencode({
-      statusCode = 200
-    })
+    "application/json" = "{ 'statusCode': 200 }"
   }
 
   depends_on = [aws_api_gateway_method.crc_options_method]
@@ -100,7 +107,7 @@ resource "aws_api_gateway_resource" "get_resource" {
 resource "aws_api_gateway_method" "crc_get_method" {
   rest_api_id   = aws_api_gateway_rest_api.crc_api.id
   resource_id   = aws_api_gateway_resource.get_resource.id
-  http_method   = "GET"
+  http_method   = "POST"
   authorization = "NONE"
 }
 
@@ -120,8 +127,8 @@ resource "aws_api_gateway_integration" "get_count_integration" {
   resource_id             = aws_api_gateway_resource.get_resource.id
   http_method             = aws_api_gateway_method.crc_get_method.http_method
   type                    = "AWS_PROXY"
-  integration_http_method = "GET"
-  uri                     = "${aws_lambda_function.add_count_lambda.invoke_arn}/invocations"
+  integration_http_method = "POST"
+  uri                     = "${aws_lambda_function.add_count_lambda.invoke_arn}"
 
   depends_on = [aws_api_gateway_method.crc_get_method, aws_lambda_function.add_count_lambda]
 }
@@ -133,13 +140,13 @@ resource "aws_api_gateway_deployment" "crc_api_deployment_get" {
   depends_on = [aws_api_gateway_integration.get_count_integration]
 }
 
-# resource "aws_api_gateway_method_settings" "put_count" {
-#   rest_api_id = aws_api_gateway_rest_api.crc_api.id
-#   stage_name  = aws_api_gateway_deployment.crc_api_deployment_get.stage_name
-#   method_path = "${aws_api_gateway_resource.get_resource.path_part}/${aws_api_gateway_method.crc_get_method.http_method}"
+resource "aws_api_gateway_method_settings" "get_count" {
+  rest_api_id = aws_api_gateway_rest_api.crc_api.id
+  stage_name  = aws_api_gateway_deployment.crc_api_deployment_get.stage_name
+  method_path = "${aws_api_gateway_resource.get_resource.path_part}/${aws_api_gateway_method.crc_get_method.http_method}"
 
-#   settings {}
-# }
+  settings {}
+}
 
 # --- Configuring and provisioning lambda function --- #
 resource "aws_iam_role" "crc_lambda_iam_role" {

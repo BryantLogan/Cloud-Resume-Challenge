@@ -19,9 +19,9 @@ def add_count_handler(event, context):
     'statusCode': '200',
     'headers': {
         # "Content-Type": "application/json",
-        'Access-Control-Allow-Origin': 'true',
-        'Access-Control-Allow-Methods': 'true',
-        'Access-Control-Allow-Headers': 'true',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Headers': '*',
     },
     "body": json.dumps({
         "message": "success",
