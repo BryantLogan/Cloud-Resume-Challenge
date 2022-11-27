@@ -4,9 +4,9 @@ const visitorLabel = document.getElementById("visitorLabel");
 async function increaseCount() {
   try{
     let response = await fetch('https://zfg8w7nleb.execute-api.us-east-1.amazonaws.com/prod/counter', {
-      headers: {
-          "Content-Type": "application/json",
-          },       
+      // headers: {
+      //     "Content-Type": "application/json",
+      //     },       
           method: "POST",
       })
       let data = await response.json();
