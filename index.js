@@ -38,3 +38,4 @@ setIncreaseCount();
 increaseCount();
 
 // old endpoint: https://zfg8w7nleb.execute-api.us-east-1.amazonaws.com/prod/counter
+// new endpoint: https://d9el2r2le6.execute-api.us-east-1.amazonaws.com/prod/counter
