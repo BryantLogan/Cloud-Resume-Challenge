@@ -1,5 +1,5 @@
 # Frontend repository for the Cloud Resume Challenge
-I created fullstack project based on the [Cloud Resume Challenge](https://cloudresumechallenge.dev/), utilizing AWS.
+I created this fullstack project based on the [Cloud Resume Challenge](https://cloudresumechallenge.dev/), utilizing AWS.
 
 The backend portion of this project can be found in this [repository](https://github.com/BryantLogan/crc-backend-iac). The deployed web app can be found [here](https://bryantlogan.com).
 
